@@ -18,9 +18,9 @@ const contactSchema = new mongoose.Schema({
     required: true
   },
   birthday: {
-    type: Date,
+    type: String,
     required: true
   }
-});
+}, { collection: 'project' });
 
 module.exports = mongoose.model('Contact', contactSchema); 

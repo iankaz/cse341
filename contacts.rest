@@ -1,0 +1,39 @@
+### Variables
+@baseUrl = http://localhost:3000
+@apiUrl = {{baseUrl}}/api/contacts
+
+### Get all contacts
+GET {{apiUrl}}
+Content-Type: application/json
+
+### Get single contact by ID
+GET {{apiUrl}}/681b03f9ff4f9b1b73038e1a
+Content-Type: application/json
+
+### Create a new contact
+POST {{apiUrl}}
+Content-Type: application/json
+
+{
+    "firstName": "Sam",
+    "lastName": "Winchester",
+    "email": "sam.winchester@gmail.com",
+    "favoriteColor": "red",
+    "birthday": "1992-05-02"
+}
+
+### Update a contact
+PUT {{apiUrl}}/681b03f9ff4f9b1b73038e1a
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Winchester",
+    "email": "john.winchester@gmail.com",
+    "favoriteColor": "black",
+    "birthday": "1990-10-01"
+}
+
+### Delete a contact
+DELETE {{apiUrl}}/681b03f9ff4f9b1b73038e1a
+Content-Type: application/json 

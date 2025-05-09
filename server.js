@@ -20,7 +20,22 @@ app.use('/api/contacts', require('./routes/contacts'));
 
 // Basic route
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.json({
+    message: 'Welcome to the Contacts API',
+    endpoints: {
+      getAllContacts: '/api/contacts',
+      getSingleContact: '/api/contacts/:id',
+      createContact: '/api/contacts (POST)',
+      updateContact: '/api/contacts/:id (PUT)',
+      deleteContact: '/api/contacts/:id (DELETE)'
+    }
+  });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
 });
 
 app.listen(port, () => {

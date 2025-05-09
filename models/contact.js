@@ -21,6 +21,9 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true
   }
-}, { collection: 'project' });
+}, { 
+  collection: 'project',  // Specify the collection name
+  database: 'users'       // Specify the database name
+});
 
 module.exports = mongoose.model('Contact', contactSchema); 

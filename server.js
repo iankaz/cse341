@@ -1,6 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+const cors = require('cors');
 
 dotenv.config();
 
@@ -9,6 +12,22 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+  origin: [
+    'https://app.swaggerhub.com',
+    'https://cse341-rlcp.onrender.com',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Swagger UI setup
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  customCss: '.swagger-ui .topbar { display: none }',
+  customSiteTitle: "Contacts API Documentation"
+}));
 
 // MongoDB Connection with more detailed logging
 mongoose.connect(process.env.MONGODB_URI, {

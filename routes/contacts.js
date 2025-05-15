@@ -2,7 +2,54 @@ const express = require('express');
 const router = express.Router();
 const Contact = require('../models/contact');
 
-// GET all contacts (Read All)
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Contact:
+ *       type: object
+ *       required:
+ *         - firstName
+ *         - lastName
+ *         - email
+ *       properties:
+ *         _id:
+ *           type: string
+ *           description: The auto-generated id of the contact
+ *         firstName:
+ *           type: string
+ *           description: The contact's first name
+ *         lastName:
+ *           type: string
+ *           description: The contact's last name
+ *         email:
+ *           type: string
+ *           description: The contact's email address
+ *         favoriteColor:
+ *           type: string
+ *           description: The contact's favorite color
+ *         birthday:
+ *           type: string
+ *           format: date
+ *           description: The contact's birthday
+ */
+
+/**
+ * @swagger
+ * /api/contacts:
+ *   get:
+ *     summary: Returns all contacts
+ *     tags: [Contacts]
+ *     responses:
+ *       200:
+ *         description: The list of contacts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Contact'
+ */
 router.get('/', async (req, res) => {
   try {
     console.log('Attempting to fetch all contacts...');
@@ -15,7 +62,29 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET single contact by ID (Read One)
+/**
+ * @swagger
+ * /api/contacts/{id}:
+ *   get:
+ *     summary: Get a contact by id
+ *     tags: [Contacts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The contact id
+ *     responses:
+ *       200:
+ *         description: The contact description by id
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contact'
+ *       404:
+ *         description: The contact was not found
+ */
 router.get('/:id', async (req, res) => {
   try {
     console.log(`Attempting to fetch contact with ID: ${req.params.id}`);
@@ -33,7 +102,28 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST new contact (Create)
+/**
+ * @swagger
+ * /api/contacts:
+ *   post:
+ *     summary: Create a new contact
+ *     tags: [Contacts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Contact'
+ *     responses:
+ *       201:
+ *         description: The contact was successfully created
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contact'
+ *       400:
+ *         description: Some required fields are missing
+ */
 router.post('/', async (req, res) => {
   try {
     console.log('Attempting to create new contact:', req.body);
@@ -54,7 +144,35 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT update contact (Update)
+/**
+ * @swagger
+ * /api/contacts/{id}:
+ *   put:
+ *     summary: Update a contact by id
+ *     tags: [Contacts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The contact id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Contact'
+ *     responses:
+ *       200:
+ *         description: The contact was updated
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Contact'
+ *       404:
+ *         description: The contact was not found
+ */
 router.put('/:id', async (req, res) => {
   try {
     console.log(`Attempting to update contact with ID: ${req.params.id}`);
@@ -82,7 +200,25 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE contact (Delete)
+/**
+ * @swagger
+ * /api/contacts/{id}:
+ *   delete:
+ *     summary: Delete a contact by id
+ *     tags: [Contacts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The contact id
+ *     responses:
+ *       200:
+ *         description: The contact was deleted
+ *       404:
+ *         description: The contact was not found
+ */
 router.delete('/:id', async (req, res) => {
   try {
     console.log(`Attempting to delete contact with ID: ${req.params.id}`);

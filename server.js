@@ -12,14 +12,13 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
+
+// CORS configuration
 app.use(cors({
-  origin: [
-    'https://app.swaggerhub.com',
-    'https://cse341-rlcp.onrender.com',
-    'http://localhost:3000'
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*', // Allow all origins for testing
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true
 }));
 
 // Swagger UI setup
